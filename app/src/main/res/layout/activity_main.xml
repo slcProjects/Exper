@@ -117,7 +117,7 @@
         android:layout_height="wrap_content"
         android:text="Updates:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sw_locationsupdates" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_showMap" />
 
     <TextView
         android:id="@+id/tv_updates"
@@ -127,13 +127,13 @@
         app:layout_constraintStart_toEndOf="@+id/tv_labelupdates"
         app:layout_constraintTop_toTopOf="@+id/tv_labelupdates" />
 
-    <Switch
-        android:id="@+id/sw_locationsupdates"
+    <Button
+        android:id="@+id/btn_showMap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:checked="true"
-        android:text="Location Updates"
+        android:checked="false"
+        android:text="Show Map"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
@@ -173,5 +173,29 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_address"
         tools:layout_editor_absoluteX="1dp"
         tools:ignore="MissingConstraints" />
+
+<!--
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sw_gps"
+        />
+
+        -->
+
+    <FrameLayout
+        android:id = "@+id/navMap"
+        android:layout_width="wrap_content"
+        android:layout_height="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sw_gps">
+        </FrameLayout>
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
