@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,9 +28,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnSuccessListener;
-
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity  {
@@ -37,19 +35,14 @@ public class MainActivity extends AppCompatActivity  {
     public static final int FAST_UPDATE_INTERVAL = 5;
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int PERMISSION_FINE_LOCATION = 99;
-    int ctr = 0;
     Location originLocation;
     LocationCallback locationCallback;
 
-  //  MapsActivity navMap;
-  //  FragmentTransaction ft;
 
     TextView tv_lat,tv_lon,tv_altitude,tv_accuracy,tv_speed,tv_sensor,tv_updates,tv_address;
     Switch sw_gps;
-    Button sw_locationsupdates;
-    boolean updateOn = false;
-  //  FusedLocationProviderClient fusedLocationProviderClient;  //Location service API.
- //   LocationRequest locationRequest; // config file for all settings related to fuseLocation
+    Button btn_showMap;
+    LinearLayout infoContent;
     LocationData locationData = LocationData.getInstance();
     MediaPlayer mediaPlayer ;
 
@@ -58,11 +51,6 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-       // navMap = new MapsActivity();
-
-
-
-
         // give each ui a variable view
         tv_lat = findViewById(R.id.tv_lat);
         tv_lon = findViewById(R.id.tv_lon);
@@ -73,17 +61,16 @@ public class MainActivity extends AppCompatActivity  {
         tv_updates = findViewById(R.id.tv_updates);
         tv_address = findViewById(R.id.tv_address);
         sw_gps = findViewById(R.id.sw_gps);
-        sw_locationsupdates = findViewById(R.id.btn_showMap);
+        btn_showMap = findViewById(R.id.btn_showMap);
+        infoContent =findViewById(R.id.infoContainer);
 
         //set all properites of LocationRequest
-
         locationData.locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
                 .setWaitForAccurateLocation(false)
                 .setMinUpdateIntervalMillis(1000 + FAST_UPDATE_INTERVAL)
                 .setMaxUpdateDelayMillis(1000)
                 .setIntervalMillis(1000 + DEFAULT_UPDATE_INTERVAL)
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
-
                 .build();
 
         locationCallback = new LocationCallback() {
@@ -92,21 +79,17 @@ public class MainActivity extends AppCompatActivity  {
                 if (locationResult == null) {
                     return;
                 }
-                Date currentTime = Calendar.getInstance().getTime();
-                Location location = locationResult.getLastLocation();
+                //  Date currentTime = Calendar.getInstance().getTime();
+                //   Location location = locationResult.getLastLocation();
                 Log.i("MainActivity", "location call  " + locationData.destinationOne.getPosition().latitude);
-
+                mediaPlayer.setVolume(5,50);
                 mediaPlayer.start();
-                //Log.println(Log.INFO, "test", "Lat" + location.getLatitude() );
-
-
             }
         };
 
 
 
         // add click listener
-
         sw_gps.setOnClickListener(new View.OnClickListener(){
             @SuppressLint("MissingPermission")
             @Override
@@ -134,64 +117,16 @@ public class MainActivity extends AppCompatActivity  {
         });
 
         updateGps();
-/*
-        ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.navMap, navMap);
-        ft.addToBackStack(null).commit();
-
-
- */
-
-
 
         // display map
-        sw_locationsupdates.setOnClickListener(new View.OnClickListener(){
+        btn_showMap.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                    //  tv_sensor.setText("going into map");
-                    Intent i = new Intent(MainActivity.this, MapsActivity.class);
-                    startActivity(i);
-
-                    /*
-                    Intent i = new Intent(MainActivity.this, MapsActivity.class);
-                    startActivity(i);
-
-
-
-                    navMap = new MapsActivity();
-                    SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                            .findFragmentById(R.id.map);
-                    mapFragment.getMapAsync(MainActivity.this);
-
-                    */
-/*
-                    ft = getSupportFragmentManager().beginTransaction();
-                    ft.add(R.id.navMap, navMap);
-                    ft.addToBackStack(null).commit();
-
-                    */
-
-
-
-
-
-
+                btn_showMap.setEnabled(false);
+                Intent i = new Intent(MainActivity.this, MapsActivity.class);
+                startActivity(i);
             }
         });
-
-
-
-        // default map fragment
-
-        /*
-        // Get a handle to the fragment and register the callback.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
-        */
-
-
     }
 
     private void stopLocationUpdates() {
@@ -202,19 +137,6 @@ public class MainActivity extends AppCompatActivity  {
         locationData.fusedLocationProviderClient.requestLocationUpdates(locationData.locationRequest, locationCallback, null);
 
     }
-
-    /*
-    // Get a handle to the GoogleMap object and display marker.
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        googleMap.addMarker(new MarkerOptions()
-                .position(new LatLng(0, 0))
-                .title("Marker"));
-    }
-
-     */
-
-
 
     @SuppressLint("MissingPermission")
     private void updateGps() {
@@ -275,23 +197,8 @@ public class MainActivity extends AppCompatActivity  {
             tv_address.setText("Unable to get address");
 
         }
-
-
-
-
-
-
-    }
-/*
-    @Override
-    public void onLocationChanged(Location location)
-    {
-        ctr ++;
-        Log.println(Log.INFO, "tst", "ctr = " + ctr);
-
     }
 
- */
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -310,6 +217,9 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onRestart() {
         super.onRestart();
+        btn_showMap.setVisibility(View.INVISIBLE);
+        infoContent.setVisibility(View.INVISIBLE);
+
         mediaPlayer = MediaPlayer.create(this, R.raw.boing);
 
         startLocationupdates();

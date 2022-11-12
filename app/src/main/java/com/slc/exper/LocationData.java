@@ -10,7 +10,7 @@ public class LocationData {
     public boolean locationPermissionGranted = false;
 
     public FusedLocationProviderClient fusedLocationProviderClient;  //Location service API.
-   public  LocationRequest locationRequest; // config file for all settings related to fuseLocation
+    public  LocationRequest locationRequest; // config file for all settings related to fuseLocation
     public   Marker destinationOne;
 
     public static LocationData getInstance() {

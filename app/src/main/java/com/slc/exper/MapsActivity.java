@@ -6,12 +6,14 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,6 +36,7 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
     private ActivityMapsBinding binding;
     LocationData locationData = LocationData.getInstance();
     private static final int DEFAULT_ZOOM = 15;
+    Button btn_search;
 
 
 /*
@@ -72,11 +75,25 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
 
         binding = ActivityMapsBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        btn_search = findViewById(R.id.btn_search);
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
+        // display map
+        btn_search.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(MapsActivity.this, FindActivity.class);
+                startActivity(i);
+
+               // finish();
+            }
+        });
     }
 
 
@@ -100,9 +117,9 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
         googleMap.getUiSettings().setZoomControlsEnabled(true);
 
         // Add a marker in Sydney and move the camera
-       // LatLng sydney = new LatLng(-34, 151);
-      //  mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-     //   mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        // LatLng sydney = new LatLng(-34, 151);
+        //  mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        //   mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 
         updateLocationUI();
@@ -118,9 +135,10 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
                 MarkerOptions markerOption = new MarkerOptions().
                         position(position).title("new Marker");
                 locationData.destinationOne = mMap.addMarker(markerOption);
+                btn_search.setVisibility(View.VISIBLE);
 
-               // String printName = LocationData.getInstance().getName();
-              //  Toast.makeText(MapsActivity.this,"name is " + printName, Toast.LENGTH_SHORT).show();
+                // String printName = LocationData.getInstance().getName();
+                //  Toast.makeText(MapsActivity.this,"name is " + printName, Toast.LENGTH_SHORT).show();
                 // Toast.makeText(getActivity(),"name is " + printName, Toast.LENGTH_SHORT).show();
 
 
@@ -136,7 +154,7 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
                 String markerName = marker.getTitle();
                 Toast.makeText(MapsActivity.this,"Checked! " + marker.getTitle(),Toast.LENGTH_SHORT).show();
                 // could return this position to the MainActivity.
-                finish();
+                // finish();
                 return false;
             }
         });
@@ -151,6 +169,7 @@ public class MapsActivity extends FragmentActivity  implements OnMapReadyCallbac
             if (locationData.locationPermissionGranted) {
                 mMap.setMyLocationEnabled(true);
                 mMap.getUiSettings().setMyLocationButtonEnabled(true);
+                mMap.getUiSettings().setCompassEnabled(true);
             } else {
                 Log.i("MapActivity", "Does not have permissions");
 
