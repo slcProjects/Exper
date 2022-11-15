@@ -13,7 +13,7 @@
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="450dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
@@ -30,8 +30,19 @@
         android:elevation="5dp"
         app:iconifiedByDefault="false"
         app:queryHint="Search Here"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/map"/>
+
+    <TextView
+        android:id="@+id/tv_altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Press and hold on map to drop marker"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idSearchView" />
 
     <Button
         android:id="@+id/btn_search"
@@ -39,12 +50,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:checked="false"
-        android:text="Show Map"
+        android:text="Start Navigation"
         android:visibility="invisible"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idSearchView" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_altitude" />
 
 
 

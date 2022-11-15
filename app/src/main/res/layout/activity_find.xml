@@ -11,6 +11,19 @@
         android:layout_height="match_parent"
         android:background="#fff" >
 
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/distanceTV"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:text="Heading: 0.0"
+            android:textSize="25sp"
+            android:textColor="#ff0000"
+            android:textStyle="normal|bold" />
+<!--
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,13 +36,62 @@
             android:textColor="#ff0000"
             android:textStyle="normal|bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/MyLocationTV"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:text="My location: 0.0"
+            android:textSize="25sp"
+            android:textColor="#ff0000"
+            android:layout_below="@+id/DegreeTV"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/DestinationTV"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:text="Destination: 0.0"
+            android:textSize="25sp"
+            android:textColor="#ff0000"
+            android:layout_below="@+id/MyLocationTV"
+            android:textStyle="normal|bold" />
+
+           -->
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/compass_image"
-            android:layout_below="@+id/DegreeTV"
+            android:layout_below="@+id/distanceTV"
             android:layout_centerHorizontal="true"
             android:src="@drawable/compass" />
+
+
+        <Button
+            android:id="@+id/btn_form"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_centerHorizontal="true"
+            android:text="Fill Out Form"
+            android:layout_below="@+id/compass_image"
+            />
+
+        <Button
+            android:id="@+id/btn_terminate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_centerHorizontal="true"
+            android:text="Terminate Program"
+            android:layout_below="@+id/btn_form"
+            />
+
 
     </RelativeLayout>
 

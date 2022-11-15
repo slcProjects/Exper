@@ -36,11 +36,10 @@ public class MainActivity extends AppCompatActivity  {
     public static final int DEFAULT_UPDATE_INTERVAL = 30;
     public static final int PERMISSION_FINE_LOCATION = 99;
     Location originLocation;
-    LocationCallback locationCallback;
 
 
-    TextView tv_lat,tv_lon,tv_altitude,tv_accuracy,tv_speed,tv_sensor,tv_updates,tv_address;
-    Switch sw_gps;
+    TextView tv_intro;
+   // Switch sw_gps;
     Button btn_showMap;
     LinearLayout infoContent;
     LocationData locationData = LocationData.getInstance();
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         // give each ui a variable view
-        tv_lat = findViewById(R.id.tv_lat);
+       /* tv_lat = findViewById(R.id.tv_lat);
         tv_lon = findViewById(R.id.tv_lon);
         tv_altitude = findViewById(R.id.tv_altitude);
         tv_accuracy = findViewById(R.id.tv_accuracy);
@@ -61,8 +60,11 @@ public class MainActivity extends AppCompatActivity  {
         tv_updates = findViewById(R.id.tv_updates);
         tv_address = findViewById(R.id.tv_address);
         sw_gps = findViewById(R.id.sw_gps);
+        */
+
+        tv_intro = findViewById(R.id.introTV);
         btn_showMap = findViewById(R.id.btn_showMap);
-        infoContent =findViewById(R.id.infoContainer);
+       // infoContent =findViewById(R.id.infoContainer);
 
         //set all properites of LocationRequest
         locationData.locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 1000)
@@ -73,23 +75,11 @@ public class MainActivity extends AppCompatActivity  {
                 .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
                 .build();
 
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                //  Date currentTime = Calendar.getInstance().getTime();
-                //   Location location = locationResult.getLastLocation();
-                Log.i("MainActivity", "location call  " + locationData.destinationOne.getPosition().latitude);
-                mediaPlayer.setVolume(5,50);
-                mediaPlayer.start();
-            }
-        };
-
 
 
         // add click listener
+
+        /*
         sw_gps.setOnClickListener(new View.OnClickListener(){
             @SuppressLint("MissingPermission")
             @Override
@@ -100,7 +90,7 @@ public class MainActivity extends AppCompatActivity  {
                     // we don't want anyways
                     tv_sensor.setText("Location Updates are on");
                     updateGps();
-                    startLocationupdates();
+                 //   startLocationupdates();
                     String printName = LocationData.getInstance().getName();
 
                     Toast.makeText(MainActivity.this,"name is " + printName, Toast.LENGTH_SHORT).show();
@@ -108,13 +98,19 @@ public class MainActivity extends AppCompatActivity  {
                 }
                 else
                 {
-                    stopLocationUpdates();
-                    locationData.fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+                //    stopLocationUpdates();
                     tv_sensor.setText("Location updates are off");
+
+
+                    //locationData.fusedLocationProviderClient.removeLocationUpdates(locationCallback);
+
+
 
                 }
             }
         });
+
+        */
 
         updateGps();
 
@@ -129,14 +125,7 @@ public class MainActivity extends AppCompatActivity  {
         });
     }
 
-    private void stopLocationUpdates() {
 
-    }
-
-    private void startLocationupdates() {
-        locationData.fusedLocationProviderClient.requestLocationUpdates(locationData.locationRequest, locationCallback, null);
-
-    }
 
     @SuppressLint("MissingPermission")
     private void updateGps() {
@@ -174,6 +163,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private void updateUIValues(Location location) {
         // update all of the text view objects with new location
+    /*
         tv_lat.setText(String.valueOf(location.getLatitude()));
         tv_lon.setText(String.valueOf(location.getLongitude()));
         tv_accuracy.setText(String.valueOf(location.getAccuracy()));
@@ -197,6 +187,9 @@ public class MainActivity extends AppCompatActivity  {
             tv_address.setText("Unable to get address");
 
         }
+
+
+     */
     }
 
 
@@ -217,12 +210,12 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onRestart() {
         super.onRestart();
-        btn_showMap.setVisibility(View.INVISIBLE);
-        infoContent.setVisibility(View.INVISIBLE);
+     //   btn_showMap.setVisibility(View.INVISIBLE);
+    //    infoContent.setVisibility(View.INVISIBLE);
 
-        mediaPlayer = MediaPlayer.create(this, R.raw.boing);
+   //     mediaPlayer = MediaPlayer.create(this, R.raw.boing);
 
-        startLocationupdates();
+        //startLocationupdates();
         Log.i("MainActivity", "onResume");
     }
 }

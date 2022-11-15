@@ -6,6 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/introTV"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp"
+            android:text="Introduction"
+            android:textSize="25sp"
+            android:textColor="#4B5320"
+            android:textStyle="normal|bold" />
+
+    <Button
+        android:id="@+id/btn_showMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:checked="false"
+        android:text="Show Map"
+        android:layout_below="@+id/introTV" />
+
+    </RelativeLayout>
+
+    <!--
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/infoContainer"
         android:layout_width="wrap_content"
@@ -153,17 +184,11 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_showMap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:checked="false"
-        android:text="Show Map"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoContainer" />
+    -->
 
+
+
+    <!--
     <Switch
         android:id="@+id/sw_gps"
         android:layout_width="wrap_content"
@@ -186,18 +211,9 @@
         tools:layout_editor_absoluteX="1dp"
         tools:ignore="MissingConstraints" />
 
-    <!--
-        <fragment xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:map="http://schemas.android.com/apk/res-auto"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:id="@+id/map"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sw_gps"
-            />
 
-            -->
+
+
 
     <FrameLayout
         android:id = "@+id/navMap"
@@ -207,7 +223,7 @@
         app:layout_constraintTop_toBottomOf="@+id/sw_gps">
     </FrameLayout>
 
-
+-->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
