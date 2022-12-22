@@ -40,7 +40,7 @@ public class FindActivity extends AppCompatActivity  {
     private float DegreeStart = 0f;
     //TextView DegreeTV;
     //TextView myLocation;
-    TextView distance;
+    TextView distance ,degreeTV, leftVolumeTV, rightVolumeTV, currentVolumeTV;
 
     static final float MAX_VOLUME = 90f;
     private float currentVolume = MAX_VOLUME * 0.75f - 1;
@@ -50,7 +50,7 @@ public class FindActivity extends AppCompatActivity  {
 
     private float previousDistance  = 0.0f;
 
-    private double previousDegree = -555555; // very small number
+    private float previousDegree = -5555f; // very small number
 
     MediaPlayer mediaPlayer ;
 
@@ -63,6 +63,12 @@ public class FindActivity extends AppCompatActivity  {
      //   DegreeTV = (TextView) findViewById(R.id.DegreeTV);
       //  myLocation = (TextView) findViewById(R.id.MyLocationTV);
         distance = (TextView) findViewById(R.id.distanceTV);
+        degreeTV =(TextView) findViewById(R.id.degreeTV);
+        leftVolumeTV = (TextView) findViewById(R.id.leftVolumeTv);
+        rightVolumeTV = (TextView) findViewById(R.id.rightVolumeTV);
+        currentVolumeTV= (TextView) findViewById(R.id.currentVolumeTv);
+
+
         boolean displayed = false;
         btn_terminate = findViewById(R.id.btn_terminate);
         btn_form = findViewById(R.id.btn_form);
@@ -104,6 +110,7 @@ public class FindActivity extends AppCompatActivity  {
                 // double currentDirection = getBearingBetweenTwoPoints(locationResult.getLastLocation(), locationResult.getLocations().get(locationResult.getLocations().size() - 2));
                 double correctDirection = getBearingBetweenTwoPoints(locationResult.getLastLocation(), destination);
              //   Log.i("FindActivity", "correct direction is  " + +  correctDirection);
+
 
                 playSound(locationResult.getLastLocation().getBearing(), correctDirection, currentDistance);
 
@@ -255,21 +262,28 @@ public class FindActivity extends AppCompatActivity  {
         Log.i("FindActity", "Degree is  " + degree);
         // (float) ((degree < 0) ? degree + 360 : degree),
 
+        degreeTV.setText("Degrees: " + degree);
+
+
 
         if(Math.abs(previousDegree - degree) > 2) {
-            previousDegree = degree;
             // rotation animation - reverse turn degree degrees
+            if(previousDegree < -500)
+                previousDegree =    (float) ((degree < 0) ? degree + 360 -1 : degree +1);
+
             RotateAnimation ra = new RotateAnimation(
-                    DegreeStart,
+                    previousDegree,
                     (float) ((degree < 0) ? degree + 360 : degree),
                     Animation.RELATIVE_TO_SELF, 0.5f,
                     Animation.RELATIVE_TO_SELF, 0.5f);
             // set the compass animation after the end of the reservation status
             ra.setFillAfter(true);
             // set how long the animation for the compass image will take place
-            ra.setDuration(210);
+            ra.setDuration(2);
             // Start animation of compass image
+
             compassimage.startAnimation(ra);
+            previousDegree =     (float) ((degree < 0) ? degree + 360 : degree);
 
         }
 
@@ -289,7 +303,7 @@ public class FindActivity extends AppCompatActivity  {
 
 
            leftVolume = (float) (1 - (Math.log(MAX_VOLUME - currentVolume) / Math.log(MAX_VOLUME)));
-            rightVolume = (float) (1 - (Math.log(MAX_VOLUME - (currentVolume * (1 -(Math.abs(degree) / (MAX_VOLUME))))) / Math.log(MAX_VOLUME)));
+           rightVolume = (float) (1 - (Math.log(MAX_VOLUME - (currentVolume * (1 -(Math.abs(degree) / (MAX_VOLUME))))) / Math.log(MAX_VOLUME)));
 
 
          //   leftVolume=(float)(Math.log(MAX_VOLUME-85f)/Math.log(MAX_VOLUME));
@@ -307,6 +321,10 @@ public class FindActivity extends AppCompatActivity  {
         }
         Log.i("FindActity", " left volume is " + leftVolume );
         Log.i("FindActity", " right volume is " + rightVolume );
+        leftVolumeTV.setText("LeftV: " + leftVolume);
+        rightVolumeTV.setText("RightV: " + rightVolume);
+        currentVolumeTV.setText("currentV: " + currentVolume);
+
         mediaPlayer.setVolume(leftVolume,rightVolume);
 
 

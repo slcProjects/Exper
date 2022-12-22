@@ -17,10 +17,62 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:id="@+id/distanceTV"
-            android:layout_marginBottom="40dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
             android:text="Heading: 0.0"
-            android:textSize="25sp"
+            android:textSize="10sp"
+            android:textColor="#ff0000"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/degreeTV"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/distanceTV"
+            android:text="Degree: 0.0"
+            android:textSize="10sp"
+            android:textColor="#ff0000"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/currentVolumeTv"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/degreeTV"
+            android:text="CurrentV: 0.0"
+            android:textSize="10sp"
+            android:textColor="#ff0000"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/leftVolumeTv"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/currentVolumeTv"
+            android:text="LeftV: 0.0"
+            android:textSize="10sp"
+            android:textColor="#ff0000"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/rightVolumeTV"
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_below="@+id/leftVolumeTv"
+            android:text="rightV: 0.0"
+            android:textSize="10sp"
             android:textColor="#ff0000"
             android:textStyle="normal|bold" />
 <!--
@@ -67,7 +119,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/compass_image"
-            android:layout_below="@+id/distanceTV"
+            android:layout_below="@+id/rightVolumeTV"
             android:layout_centerHorizontal="true"
             android:src="@drawable/compass" />
 
